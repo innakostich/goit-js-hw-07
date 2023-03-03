@@ -1,10 +1,9 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
 
 const galleryContainer = document.querySelector(".gallery");
 const imagesMarkup = createImagesMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML("beforeend", imagesMarkup);
-  
+
 function createImagesMarkup(items) {
   return items
     .map(({ preview, original, description }) => {
@@ -22,19 +21,40 @@ function createImagesMarkup(items) {
     .join("");
 }
 
-  const onContainerClick = (e) => {
-    e.preventDefault();
+const onContainerClick = (e) => {
+  e.preventDefault();
+
+  if (e.target.classList.contains("gallery")) return;
+  const source = e.target.dataset.source;
+
+  const instance = basicLightbox.create(`
+    <img src="${source}"width="800" height="600">`);
+
+  instance.show();
+
   
-    if (e.target.classList.contains("gallery")) return;
-      const source = e.target.dataset.source;
-      
-    const instance = basicLightbox.create(`
-      <img src="${source}"width="800" height="600">`);
-  
-    instance.show();
-  };
-  
-  galleryContainer.addEventListener("click", onContainerClick);
+  document.addEventListener("keydown", onDocumentKeyDown);
+
+
+  instance.element().addEventListener("keydown", onInstanceKeyDown);
+
+  function onDocumentKeyDown(e) {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  }
+
+  function onInstanceKeyDown(e) {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  }
+};
+
+galleryContainer.addEventListener("click", onContainerClick);
+
+
+ 
 
   // addEventListener("keydown", (e) => {
   //     if (e.key === "Escape") {
