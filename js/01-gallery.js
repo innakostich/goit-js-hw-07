@@ -36,3 +36,9 @@ function createImagesMarkup(items) {
   
   galleryContainer.addEventListener("click", onContainerClick);
 
+  // addEventListener("keydown", (e) => {
+  //     if (e.key === "Escape") {
+  //       console.log("close modal");
+  //     }
+  //     console.log(e);
+  //   });
