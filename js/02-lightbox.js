@@ -1,8 +1,8 @@
 import { galleryItems } from './gallery-items.js';
 
 const galleryContainer = document.querySelector(".gallery");
-const imagesMarkup = createImagesMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML("beforeend", imagesMarkup);
+ createImagesMarkup(galleryItems);
+
 
 function createImagesMarkup(items) {
   return items
@@ -23,11 +23,14 @@ function createImagesMarkup(items) {
         })
         .join("");
     }
-const lightbox = new SimpleLightbox(".gallery a", {
+   const lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
   captionType: "alt",
 });
+
+galleryContainer.addEventListener("click", onContainerClick);
+
  
 // addEventListener("keydown", (e) => {
 //     if (e.key === "Escape") {
